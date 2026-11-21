@@ -1,19 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Block Dodger</title>
-<style>
-  html, body { margin: 0; height: 100%; overflow: hidden; background: #11141b; }
-  #game { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; }
-  /* Read aloud, never shown: the status line screen readers announce. */
-  #status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redline City</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #0a0c10; color: #e8e8e8; font-family: system-ui, sans-serif; }
+    #game { display: block; width: 100%; height: 100%; }
+    #hud { position: fixed; inset: 0; pointer-events: none; z-index: 10; }
+    #ui-overlay { position: fixed; inset: 0; pointer-events: none; z-index: 20; }
+    .ui-panel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 24px; text-align: center; background: rgba(10,12,16,0.92); backdrop-filter: blur(4px); }
+    .ui-panel.hidden { display: none; }
+    .ui-panel h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; background: linear-gradient(90deg, #ff6b35 0%, #f7931e 50%, #ff6b35 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 40px rgba(255,107,53,0.4); }
+    .ui-panel h2 { font-size: 1.5rem; font-weight: 500; color: #b0b8c0; }
+    .ui-panel p { color: #889098; max-width: 600px; line-height: 1.6; }
+    .btn { appearance: none; border: none; border-radius: 4px; padding: 14px 40px; font-size: 1.1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; cursor: pointer; transition: all 0.15s ease; background: linear-gradient(180deg, #ff7b45 0%, #e85d25 100%); color: #fff; box-shadow: 0 4px 16px rgba(232,93,37,0.3), inset 0 1px 0 rgba(255,255,255,0.15); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(232,93,37,0.45), inset 0 1px 0 rgba(255,255,255,0.2); }
+    .btn:active { transform: translateY(0); box-shadow: 0 2px 8px rgba(232,93,37,0.3), inset 0 1px 0 rgba(255,255,255,0.2); }
+    .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .btn.secondary { background: linear-gradient(180deg, #3a3f4a 0%, #242832 100%); box-shadow: 0 4px 16px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05); }
+    .btn.secondary:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.08); }
+    .controls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; max-width: 800px; margin-top: 8px; text-align: left; }
+    .control-row { display: flex; align-items: center; gap: 16px; padding: 8px 12px; background: rgba(255,255,255,0.03); border-radius: 6px; border: 1px solid rgba(255,255,255,0.05); }
+    .control-key { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85rem; padding: 4px 10px; background: rgba(255,107,53,0.15); border: 1px solid rgba(255,107,53,0.3); border_radius: 4px; color: #ff9f7a; min-width: 80px; text-align: center; }
+    .control-desc { color: #c8d0d8; }
+    .stat-line { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 1.1rem; color: #ffb880; }
+    .credits { margin-top: 24px; color: #5a6068; font-size: 0.85rem; }
+    .wasted { color: #ff3e3e; text-shadow: 0 0 30px rgba(255,62,62,0.6); animation: pulse 1.2s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+    .passed { color: #4ade80; text-shadow: 0 0 30px rgba(74,222,128,0.5); }
+    .pointer-lock-notice { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); padding: 10px 20px; background: rgba(10,12,16,0.85); border: 1px solid rgba(255,107,53,0.3); border-radius: 999px; font-size: 0.85rem; color: #ffb880; z-index: 30; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+    .pointer-lock-notice.show { opacity: 1; }
+  </style>
 </head>
 <body>
-<canvas id="game" aria-label="Block Dodger: move the paddle left and right to dodge falling blocks and catch coins"></canvas>
-<p id="status" role="status" aria-live="polite"></p>
-<script type="module" src="./src/main.js"></script>
+  <canvas id="game" aria-label="Redline City — open world crime game"></canvas>
+  <canvas id="hud" aria-hidden="true"></canvas>
+  <div id="ui-overlay" aria-live="polite"></div>
+  <div id="pointer-lock-notice" class="pointer-lock-notice">Click to lock pointer — ESC to release</div>
+  <script type="module" src="./src/main.js"></script>
 </body>
 </html>
