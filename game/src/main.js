@@ -145,6 +145,7 @@ function runShot(name) {
 
   // Otherwise run gameplay simulation from a fresh world
   state.screen = 'play';
+  if (systems.ui) systems.ui.show('none');
 
   // Simple autopilot for shot staging: uses a private seeded RNG so it never
   // touches the systems' Math.random paths

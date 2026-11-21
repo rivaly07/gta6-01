@@ -3,7 +3,7 @@
 
 import { TRAFFIC, WORLD, VEHICLE_TYPES } from '../config.js';
 import { cityData } from '../city/generator.js';
-import { pickVehicleType } from './vehicle.js';
+import { pickVehicleType } from '../vehicles/vehicle.js';
 
 const LANE = 2.7;
 
