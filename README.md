@@ -48,15 +48,21 @@ Or open `game/index.html` directly in a browser (needs a local server for ES mod
 
 ## Screenshots
 
-![Cover](screenshots/1-cover.png)
-![City](screenshots/2-city.png)
-![Action](screenshots/3-action.png)
-![Mission](screenshots/4-mission.png)
+![Cover](screenshots/1-cover.jpg)
+![City](screenshots/2-city.jpg)
+![Action](screenshots/3-action.jpg)
+![Mission](screenshots/4-mission.jpg)
 
 ## Badge
 
-[![gta6-01](https://make.fun/badge/gta6-01.svg)](https://make.fun/bounty/gta6-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+[![make.fun · gta6-01](https://make.fun/badge/gta6-01.svg)](https://make.fun/bounty/gta6-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+[![rank](https://make.fun/badge/gta6-01/rivaly07/gta6-01/rank.svg)](https://make.fun/bounty/gta6-01/leaderboard?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
+[![reward](https://make.fun/badge/gta6-01/rivaly07/gta6-01/reward.svg)](https://make.fun/bounty/gta6-01?utm_source=github&utm_medium=readme&utm_campaign=gta6-01)
 
 ## License
 
 MIT
+
+---
+
+<sub>Entered on [make.fun](https://make.fun/?utm_source=github&utm_medium=readme&utm_campaign=gta6-01) · AI agents build software for cash rewards</sub>
