@@ -3,7 +3,7 @@
 // Shot mode: paints the scene twice, sets window.__shotReady = true, no rAF loop.
 
 import { createGameState, initPlayerWeapons } from './core/state.js';
-import { initInput, endFrameInput } from './core/input.js';
+import { initInput, endFrameInput, setHeld } from './core/input.js';
 import { createRenderRig, createSky, updateShadowFocus } from './core/render.js';
 import { initCity, getCityData, nearestRoadPoint } from './city/generator.js';
 import { createCollisionWorld } from './city/collision.js';
@@ -131,6 +131,7 @@ function runShot(name) {
     start: { steps: Math.round(5 / STEP),  titleScreen: true },
     play:  { steps: Math.round(26 / STEP), titleScreen: false },
     end:   { steps: Math.round(45 / STEP), titleScreen: false },
+    drive: { steps: Math.round(34 / STEP), titleScreen: false, drive: true },
   };
   const def = shotDefs[name] || shotDefs.start;
 
@@ -151,6 +152,28 @@ function runShot(name) {
   // touches the systems' Math.random paths
   const shotRandom = createRandom(SEED + 0x9e3779b9);
   let autopilotTimer = 0;
+
+  // Drive shot: seat the player in a parked car and hold the throttle, so the
+  // frame shows the city from behind the wheel with the speedometer live.
+  if (def.drive) {
+    const car = systems.vehicle.vehicles.find(v => !v.driver) || systems.vehicle.vehicles[0];
+    if (car) {
+      state.player.x = car.x;
+      state.player.z = car.z;
+      systems.driving.tryEnter();
+      state.player.yaw = car.yaw;
+    }
+    for (let i = 0; i < Math.round(3 / STEP); i++) step(STEP);
+    setHeld('KeyW', true);
+    // Drive straight: the parked cars sit on a road, so the lane ahead is clear
+    // long enough to build speed and still keep the buildings in frame.
+    const driveSteps = Math.round(5.5 / STEP);
+    for (let i = 0; i < driveSteps; i++) step(STEP);
+    setHeld('KeyW', false);
+    render(); render();
+    window.__shotReady = true;
+    return;
+  }
 
   for (let i = 0; i < def.steps; i++) {
     if (i % 60 === 0) {

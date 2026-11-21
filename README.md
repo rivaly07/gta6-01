@@ -50,7 +50,7 @@ Or open `game/index.html` directly in a browser (needs a local server for ES mod
 
 ![Cover](screenshots/1-cover.jpg)
 ![City](screenshots/2-city.jpg)
-![Action](screenshots/3-action.jpg)
+![Driving](screenshots/3-driving.jpg)
 ![Mission](screenshots/4-mission.jpg)
 
 ## Badge

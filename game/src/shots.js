@@ -3,10 +3,10 @@
 // The actual staging logic lives in main.js (runShot).
 
 export const SHOTS = [
-  { name: '1-cover.png',  query: '?shot=start&seed=1' },
-  { name: '2-city.png',   query: '?shot=play&seed=1' },
-  { name: '3-action.png', query: '?shot=play&seed=42' },
-  { name: '4-mission.png', query: '?shot=end&seed=99' },
+  { name: '1-cover.jpg',   query: '?shot=start&seed=1' },
+  { name: '2-city.jpg',    query: '?shot=play&seed=1' },
+  { name: '3-driving.jpg', query: '?shot=drive&seed=7' },
+  { name: '4-mission.jpg', query: '?shot=end&seed=99' },
 ];
 
 export function getShotNames() {

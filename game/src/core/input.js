@@ -77,6 +77,10 @@ export function onKey(fn) {
 }
 
 export function isHeld(code) { return held.has(code); }
+
+// Shot staging only: stage held keys without a real keyboard.
+export function setHeld(code, on) { if (on) held.add(code); else held.delete(code); }
+
 export function anyHeld(codes) {
   for (const c of codes) if (held.has(c)) return true;
   return false;
